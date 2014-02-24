@@ -1,0 +1,9 @@
+{
+  "name": "meteor-threejs",
+  "description": "JavaScript 3D library. With controls and loaders.",
+  "homepage": "",
+  "author": "Lloyd Henning <eldog@foxdogstudios.com> (http://foxdogstudios.com)",
+  "version": "0.0.1",
+  "git": "",
+  "packages": {}
+}
