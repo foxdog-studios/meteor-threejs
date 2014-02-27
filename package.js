@@ -5,6 +5,9 @@ Package.describe({
 Package.on_use(function (api) {
   where = ['client'];
 
+  //
+  api.add_files('lib/typedarray.js', where);
+
   // core
   api.add_files('lib/three.js', where);
 
