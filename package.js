@@ -1,44 +1,37 @@
 Package.describe({
-  summary: "JavaScript 3D library. With controls and loaders."
+  summary: 'JavaScript 3D library with controls & loaders'
 });
 
 Package.on_use(function (api) {
-  where = ['client'];
+  // If you change the array below, yopu must also change build.zsh.
+  api.add_files([
+    // Polyfiller (must be loaded first)
+    'build/typedarray.js',
 
-  //
-  api.add_files('lib/typedarray.js', where);
+    // THREE.js Core
+    'build/three.min.js',
 
-  // core
-  api.add_files('lib/three.js', where);
+    // THREE.js Controls
+    'build/DeviceOrientationControls.js',
+    'build/EditorControls.js',
+    'build/FirstPersonControls.js',
+    'build/FlyControls.js',
+    'build/OculusControls.js',
+    'build/OrbitControls.js',
+    'build/PathControls.js',
+    'build/PointerLockControls.js',
+    'build/TrackballControls.js',
+    'build/TransformControls.js',
 
-  // controls
-  files = [
-    'EditorControls',
-    'FirstPersonControls',
-    'FlyControls',
-    'OculusControls',
-    'OrbitControls',
-    'PathControls',
-    'PointerLockControls',
-    'TrackballControls',
-    'TransformControls'
-  ];
-  for (i = 0; i < files.length; i++) {
-    fileName = files[i];
-    api.add_files('lib/controls/' + fileName + '.js', where);
-  }
+    // THREE.js Loaders
+    'build/MTLLoader.js',
+    'build/OBJLoader.js',
+    'build/OBJLoader2.js',
+    'build/OBJMTLLoader.js',
+  ],[
+    'client'
+  ]);
 
-  // loaders
-  loaders = [
-    'MTLLoader',
-    'OBJLoader2',
-    'OBJLoader',
-    'OBJMTLLoader'
-  ];
-  for (var i = 0; i < loaders.length; i++) {
-    loader = loaders[i];
-    api.add_files('lib/loaders/' + loader + '.js', where);
-  }
-
+  api.export(['THREE'], ['client']);
 });
 

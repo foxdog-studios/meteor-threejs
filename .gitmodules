@@ -1,0 +1,6 @@
+[submodule "lib/three.js"]
+	path = lib/three.js
+	url = https://github.com/mrdoob/three.js.git
+[submodule "lib/polyfill"]
+	path = lib/polyfill
+	url = https://github.com/inexorabletash/polyfill
