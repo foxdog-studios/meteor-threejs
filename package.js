@@ -9,7 +9,7 @@ Package.describe({
   //
   // where Y is the packaging version.
   //
-  version: "67.0.0_1",
+  version: "67.0.0_2",
 
   git: "https://github.com/foxdog-studios/meteor-threejs"
 });
