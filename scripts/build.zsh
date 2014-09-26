@@ -18,7 +18,6 @@ srcs=(
     'lib/three.js/examples/js/controls/FlyControls.js'
     'lib/three.js/examples/js/controls/OculusControls.js'
     'lib/three.js/examples/js/controls/OrbitControls.js'
-    'lib/three.js/examples/js/controls/PathControls.js'
     'lib/three.js/examples/js/controls/PointerLockControls.js'
     'lib/three.js/examples/js/controls/TrackballControls.js'
     'lib/three.js/examples/js/controls/TransformControls.js'
