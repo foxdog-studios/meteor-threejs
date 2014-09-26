@@ -1,11 +1,15 @@
 Package.describe({
-  summary: "JavaScript 3D library with controls & loaders",
+  summary: "[DON'T USE] JavaScript 3D library with controls & loaders",
 
-  // To make the Meteor version, take to three.js release number
-  // (without the leading "r") and use that as MINOR version. Use "1"
-  // as the MAJOR version and "0" as the PATCH version. Finally, append
-  // the packaging version "_X".
-  version: "1.67.0_1",
+  // As three.js releases may contain breaking changes, each release
+  // is a major version in semver terms. To derive the Meteor package
+  // version from the three.js release tag:
+  //
+  //   rX -> X.0.0_Y
+  //
+  // where Y is the packaging version.
+  //
+  version: "67.0.0_1",
 
   git: "https://github.com/foxdog-studios/meteor-threejs"
 });
