@@ -98,7 +98,6 @@ THREE.OrbitControls = function ( object, domElement ) {
 	var pan = new THREE.Vector3();
 
 	var lastPosition = new THREE.Vector3();
-	var lastQuaternion = new THREE.Quaternion();
 
 	var STATE = { NONE : -1, ROTATE : 0, DOLLY : 1, PAN : 2, TOUCH_ROTATE : 3, TOUCH_DOLLY : 4, TOUCH_PAN : 5 };
 
@@ -285,17 +284,11 @@ THREE.OrbitControls = function ( object, domElement ) {
 		scale = 1;
 		pan.set( 0, 0, 0 );
 
-		// update condition is:
-		// min(camera displacement, camera rotation in radians)^2 > EPS
-		// using small-angle approximation cos(x/2) = 1 - x^2 / 8
-
-		if ( lastPosition.distanceToSquared( this.object.position ) > EPS
-		    || 8 * (1 - lastQuaternion.dot(this.object.quaternion)) > EPS ) {
+		if ( lastPosition.distanceToSquared( this.object.position ) > EPS ) {
 
 			this.dispatchEvent( changeEvent );
 
 			lastPosition.copy( this.object.position );
-			lastQuaternion.copy (this.object.quaternion );
 
 		}
 
@@ -353,8 +346,8 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		}
 
-		document.addEventListener( 'mousemove', onMouseMove, false );
-		document.addEventListener( 'mouseup', onMouseUp, false );
+		scope.domElement.addEventListener( 'mousemove', onMouseMove, false );
+		scope.domElement.addEventListener( 'mouseup', onMouseUp, false );
 		scope.dispatchEvent( startEvent );
 
 	}
@@ -422,8 +415,8 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		if ( scope.enabled === false ) return;
 
-		document.removeEventListener( 'mousemove', onMouseMove, false );
-		document.removeEventListener( 'mouseup', onMouseUp, false );
+		scope.domElement.removeEventListener( 'mousemove', onMouseMove, false );
+		scope.domElement.removeEventListener( 'mouseup', onMouseUp, false );
 		scope.dispatchEvent( endEvent );
 		state = STATE.NONE;
 

@@ -5,7 +5,7 @@ Package.describe({
   // (without the leading "r") and use that as MINOR version. Use "1"
   // as the MAJOR version and "0" as the PATCH version. Finally, append
   // the packaging version "_X".
-  version: "1.68.0_1",
+  version: "1.67.0_1",
 
   git: "https://github.com/foxdog-studios/meteor-threejs"
 });
@@ -29,6 +29,7 @@ Package.onUse(function (api) {
       'build/FlyControls.js',
       'build/OculusControls.js',
       'build/OrbitControls.js',
+      'build/PathControls.js',
       'build/PointerLockControls.js',
       'build/TrackballControls.js',
       'build/TransformControls.js',
