@@ -52,28 +52,31 @@ THREE.EditorControls = function ( object, domElement ) {
 
 	};
 
-	this.pan = function ( distance ) {
+	this.pan = function ( delta ) {
 
-		normalMatrix.getNormalMatrix( object.matrix );
+		var distance = object.position.distanceTo( center );
 
-		distance.applyMatrix3( normalMatrix );
-		distance.multiplyScalar( vector.copy( center ).sub( object.position ).length() * 0.001 );
+		delta.multiplyScalar( distance * 0.001 );
+		delta.applyMatrix3( normalMatrix.getNormalMatrix( object.matrix ) );
 
-		object.position.add( distance );
-		center.add( distance );
+		object.position.add( delta );
+		center.add( delta );
 
 		scope.dispatchEvent( changeEvent );
 
 	};
 
-	this.zoom = function ( distance ) {
+	this.zoom = function ( delta ) {
 
-		normalMatrix.getNormalMatrix( object.matrix );
+		var distance = object.position.distanceTo( center );
 
-		distance.applyMatrix3( normalMatrix );
-		distance.multiplyScalar( vector.copy( center ).sub( object.position ).length() * 0.001 );
+		delta.multiplyScalar( distance * 0.001 );
 
-		object.position.add( distance );
+		if ( delta.length() > distance ) return;
+
+		delta.applyMatrix3( normalMatrix.getNormalMatrix( object.matrix ) );
+
+		object.position.add( delta );
 
 		scope.dispatchEvent( changeEvent );
 
@@ -113,8 +116,6 @@ THREE.EditorControls = function ( object, domElement ) {
 
 		if ( scope.enabled === false ) return;
 
-		event.preventDefault();
-
 		if ( event.button === 0 ) {
 
 			state = STATE.ROTATE;
@@ -141,8 +142,6 @@ THREE.EditorControls = function ( object, domElement ) {
 	function onMouseMove( event ) {
 
 		if ( scope.enabled === false ) return;
-
-		event.preventDefault();
 
 		pointer.set( event.clientX, event.clientY );
 
@@ -179,6 +178,8 @@ THREE.EditorControls = function ( object, domElement ) {
 	}
 
 	function onMouseWheel( event ) {
+
+		event.preventDefault();
 
 		// if ( scope.enabled === false ) return;
 
@@ -261,7 +262,7 @@ THREE.EditorControls = function ( object, domElement ) {
 			case 1:
 				touches[ 0 ].set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY, 0 );
 				touches[ 1 ].set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY, 0 );
-				scope.rotate( touches[ 0 ].sub( getClosest( touches[ 0 ] ,prevTouches ) ).multiplyScalar( - 0.005 ) );
+				scope.rotate( touches[ 0 ].sub( getClosest( touches[ 0 ], prevTouches ) ).multiplyScalar( - 0.005 ) );
 				break;
 
 			case 2:
@@ -272,8 +273,8 @@ THREE.EditorControls = function ( object, domElement ) {
 				prevDistance = distance;
 
 
-				var offset0 = touches[ 0 ].clone().sub( getClosest( touches[ 0 ] ,prevTouches ) );
-				var offset1 = touches[ 1 ].clone().sub( getClosest( touches[ 1 ] ,prevTouches ) );
+				var offset0 = touches[ 0 ].clone().sub( getClosest( touches[ 0 ], prevTouches ) );
+				var offset1 = touches[ 1 ].clone().sub( getClosest( touches[ 1 ], prevTouches ) );
 				offset0.x = -offset0.x;
 				offset1.x = -offset1.x;
 
@@ -294,3 +295,4 @@ THREE.EditorControls = function ( object, domElement ) {
 };
 
 THREE.EditorControls.prototype = Object.create( THREE.EventDispatcher.prototype );
+THREE.EditorControls.prototype.constructor = THREE.EditorControls;
