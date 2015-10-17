@@ -10,13 +10,13 @@ Package.describe({
   //
   // where Y is the packaging version.
   //
-  version: '71.0.0_1',
+  version: '73.0.0_1',
   git: 'https://github.com/foxdog-studios/meteor-threejs',
   documentation: 'README.md'
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom('1.0.5');
+  api.versionsFrom('METEOR@1.2.0.2');
 
   // If you change the array below, yopu must also change build.zsh.
   api.addFiles(
@@ -65,5 +65,10 @@ Package.onUse(function (api) {
   );
 
   api.export('THREE', 'client');
+});
+
+Package.onTest(function (api) {
+  api.use(['tinytest', 'fds:threejs']);
+  api.addFiles('tests.js', 'client');
 });
 
